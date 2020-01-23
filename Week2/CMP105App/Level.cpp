@@ -50,8 +50,11 @@ void Level::handleInput()
 void Level::update()
 {
 	std::cout << input->getMouseX();
-	std::string outputX = "X,Y: " + std::to_string(input->getMouseX()+input->getMouseY());
-	text.setString(outputX);
+
+
+	std::string output = "X :" + std::to_string(input->getMouseX());
+	std::string outputy = " Y :" + std::to_string(input->getMouseY());
+	text.setString(output+outputy);
 
 	
 	//output + std::to_string
