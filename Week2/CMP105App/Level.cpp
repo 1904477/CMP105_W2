@@ -6,6 +6,15 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	input = in;
 
 	// initialise game objects
+	if(!font.loadFromFile("font/arial.ttf"))
+	{ 
+		std::cout << "NO \n";
+	}
+	text.setFont(font);
+	text.setString("Mouse position ");
+	text.setCharacterSize(20);
+	text.setFillColor(sf::Color::Blue);
+
 
 }
 
@@ -17,21 +26,43 @@ Level::~Level()
 // handle user input
 void Level::handleInput()
 {
+	if (input->isKeyDown(sf::Keyboard::W))
+	{
+		input->setKeyUp(sf::Keyboard::W);
+		std::cout << "W was pressed\n";
+	}
+	if (input->isKeyDown(sf::Keyboard::J) && (input->isKeyDown(sf::Keyboard::K)) && (input->isKeyDown(sf::Keyboard::L)))
+	{
+		input->setKeyUp(sf::Keyboard::J);
+		input->setKeyUp(sf::Keyboard::K);
+		input->setKeyUp(sf::Keyboard::L);
+		std::cout << "J,K,W were pressed together\n";
+	}
+	if (input->isKeyDown(sf::Keyboard::Escape))
+	{
+		window->close();
 
-
+	}
+	
 }
 
 // Update game objects
 void Level::update()
 {
+	std::cout << input->getMouseX();
+	std::string outputX = "X,Y: " + std::to_string(input->getMouseX()+input->getMouseY());
+	text.setString(outputX);
 
+	
+	//output + std::to_string
 }
 
 // Render level
 void Level::render()
 {
 	beginDraw();
-
+		
+	window->draw(text);
 	endDraw();
 }
 
@@ -46,3 +77,4 @@ void Level::endDraw()
 {
 	window->display();
 }
+
