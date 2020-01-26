@@ -14,7 +14,9 @@ public:
 	void handleInput();
 	void update();
 	void render();
-
+	int x = 0;
+	int y = 0;
+	bool mousedown = false;
 private:
 	// Default functions for rendering to the screen.
 	void beginDraw();
@@ -27,4 +29,5 @@ private:
 	// Add your object here
 	sf::Font font;
 	sf::Text text;
+	
 };

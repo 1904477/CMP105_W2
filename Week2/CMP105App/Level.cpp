@@ -6,14 +6,15 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	input = in;
 
 	// initialise game objects
-	if(!font.loadFromFile("font/arial.ttf"))
-	{ 
+	if (!font.loadFromFile("font/arial.ttf"))
+	{
 		std::cout << "NO \n";
 	}
 	text.setFont(font);
 	text.setString("Mouse position ");
 	text.setCharacterSize(20);
 	text.setFillColor(sf::Color::Blue);
+
 
 
 }
@@ -26,6 +27,7 @@ Level::~Level()
 // handle user input
 void Level::handleInput()
 {
+	
 	if (input->isKeyDown(sf::Keyboard::W))
 	{
 		input->setKeyUp(sf::Keyboard::W);
@@ -43,14 +45,35 @@ void Level::handleInput()
 		window->close();
 
 	}
-	
+	if (input->isMouseLDown()&&mousedown==false)
+	{
+		
+		
+		x = input->getMouseX(); 
+		y = input->getMouseY();
+		mousedown = true;
+	}
+	if (!input->isMouseLDown()&&mousedown==true)
+	{
+
+		std::cout << "you released the left button\n";
+		int x1 = input->getMouseX();
+		int y1 = input->getMouseY();
+		float distancex = (x - x1) * (x - x1);
+		float distancey = (y - y1) * (y - y1);
+		float distance = distancex * distancey;
+		float finaldistance = sqrt(distance);
+		std::cout << finaldistance<<"\n";
+		mousedown = false;
+	}
 }
+	
+
 
 // Update game objects
 void Level::update()
 {
-	std::cout << input->getMouseX();
-
+	
 
 	std::string output = "X :" + std::to_string(input->getMouseX());
 	std::string outputy = " Y :" + std::to_string(input->getMouseY());
